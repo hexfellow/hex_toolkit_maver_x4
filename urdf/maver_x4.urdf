@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="maver_x4">
+    <link name="base_link">
+        <inertial>
+            <origin xyz="-0.00051929 0.022743 0.12782" rpy="0 0 0" />
+            <mass value="43.464" />
+            <inertia ixx="0.6655" ixy="-0.00054813" ixz="-0.0016176"
+                    iyy="0.46727" iyz="-0.0021138" izz="1.1037" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/base_link.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.75 0.75 0.75 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/base_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="link_yaw1">
+        <inertial>
+        <origin xyz="-0.010257 -0.0011369 -0.064839" rpy="0 0 0" />
+        <mass value="0.8259" />
+        <inertia ixx="0.00060151" ixy="1.2904E-05" ixz="-9.0688E-05"
+                iyy="0.00078014" iyz="1.4436E-05" izz="0.0006025" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_yaw.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.647058823529412 0.619607843137255 0.588235294117647 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_yaw.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint_yaw1" type="fixed">
+        <origin xyz="0.212 0.14 0.1625" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="link_yaw1" />
+        <axis xyz="0 0 1" />
+        <limit lower="0.1" upper="100" effort="1" velocity="1" />
+    </joint>
+    <link name="link_wheel1">
+        <inertial>
+            <origin xyz="5.0479E-07 0.0023009 -8.7519E-07" rpy="0 0 0" />
+            <mass value="0.36495" />
+            <inertia ixx="0.00041642" ixy="-1.4943E-09" ixz="-2.1546E-09"
+                    iyy="0.00075667" iyz="2.5907E-09" izz="0.00041642" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_wheel.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.1 0.1 0.1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_wheel.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint_wheel1" type="fixed">
+        <origin xyz="-0.02 0 -0.1" rpy="0 0 0" />
+        <parent link="link_yaw1" />
+        <child link="link_wheel1" />
+        <axis xyz="0 1 0" />
+        <limit lower="0.1" upper="100" effort="1" velocity="1" />
+    </joint>
+
+    <link name="link_yaw2">
+        <inertial>
+        <origin xyz="-0.010257 -0.0011369 -0.064839" rpy="0 0 0" />
+        <mass value="0.8259" />
+        <inertia ixx="0.00060151" ixy="1.2904E-05" ixz="-9.0688E-05"
+                iyy="0.00078014" iyz="1.4436E-05" izz="0.0006025" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_yaw.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.647058823529412 0.619607843137255 0.588235294117647 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_yaw.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint_yaw2" type="fixed">
+        <origin xyz="-0.212 0.14 0.1625" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="link_yaw2" />
+        <axis xyz="0 0 1" />
+        <limit lower="0.1" upper="100" effort="1" velocity="1" />
+    </joint>
+    <link name="link_wheel2">
+        <inertial>
+            <origin xyz="5.0479E-07 0.0023009 -8.7519E-07" rpy="0 0 0" />
+            <mass value="0.36495" />
+            <inertia ixx="0.00041642" ixy="-1.4943E-09" ixz="-2.1546E-09"
+                    iyy="0.00075667" iyz="2.5907E-09" izz="0.00041642" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_wheel.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.1 0.1 0.1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_wheel.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint_wheel2" type="fixed">
+        <origin xyz="-0.02 0 -0.1" rpy="0 0 0" />
+        <parent link="link_yaw2" />
+        <child link="link_wheel2" />
+        <axis xyz="0 1 0" />
+        <limit lower="0.1" upper="100" effort="1" velocity="1" />
+    </joint>
+
+    <link name="link_yaw3">
+        <inertial>
+        <origin xyz="-0.010257 -0.0011369 -0.064839" rpy="0 0 0" />
+        <mass value="0.8259" />
+        <inertia ixx="0.00060151" ixy="1.2904E-05" ixz="-9.0688E-05"
+                iyy="0.00078014" iyz="1.4436E-05" izz="0.0006025" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_yaw.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.647058823529412 0.619607843137255 0.588235294117647 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_yaw.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint_yaw3" type="fixed">
+        <origin xyz="-0.212 -0.14 0.1625" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="link_yaw3" />
+        <axis xyz="0 0 1" />
+        <limit lower="0.1" upper="100" effort="1" velocity="1" />
+    </joint>
+    <link name="link_wheel3">
+        <inertial>
+            <origin xyz="5.0479E-07 0.0023009 -8.7519E-07" rpy="0 0 0" />
+            <mass value="0.36495" />
+            <inertia ixx="0.00041642" ixy="-1.4943E-09" ixz="-2.1546E-09"
+                    iyy="0.00075667" iyz="2.5907E-09" izz="0.00041642" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_wheel.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.1 0.1 0.1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_wheel.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint_wheel3" type="fixed">
+        <origin xyz="-0.02 0 -0.1" rpy="0 0 0" />
+        <parent link="link_yaw3" />
+        <child link="link_wheel3" />
+        <axis xyz="0 1 0" />
+        <limit lower="0.1" upper="100" effort="1" velocity="1" />
+    </joint>
+
+    <link name="link_yaw4">
+        <inertial>
+        <origin xyz="-0.010257 -0.0011369 -0.064839" rpy="0 0 0" />
+        <mass value="0.8259" />
+        <inertia ixx="0.00060151" ixy="1.2904E-05" ixz="-9.0688E-05"
+                iyy="0.00078014" iyz="1.4436E-05" izz="0.0006025" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_yaw.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.647058823529412 0.619607843137255 0.588235294117647 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_yaw.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint_yaw4" type="fixed">
+        <origin xyz="0.212 -0.14 0.1625" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="link_yaw4" />
+        <axis xyz="0 0 1" />
+        <limit lower="0.1" upper="100" effort="1" velocity="1" />
+    </joint>
+    <link name="link_wheel4">
+        <inertial>
+            <origin xyz="5.0479E-07 0.0023009 -8.7519E-07" rpy="0 0 0" />
+            <mass value="0.36495" />
+            <inertia ixx="0.00041642" ixy="-1.4943E-09" ixz="-2.1546E-09"
+                    iyy="0.00075667" iyz="2.5907E-09" izz="0.00041642" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_wheel.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.1 0.1 0.1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hex_toolkit_maver_x4/urdf/meshes/link_wheel.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint_wheel4" type="fixed">
+        <origin xyz="-0.02 0 -0.1" rpy="0 0 0" />
+        <parent link="link_yaw4" />
+        <child link="link_wheel4" />
+        <axis xyz="0 1 0" />
+        <limit lower="0.1" upper="100" effort="1" velocity="1" />
+    </joint>
+
+</robot>
