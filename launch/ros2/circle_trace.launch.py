@@ -55,8 +55,8 @@ def generate_launch_description():
             ('/chassis_odom', '/odom'),
             ('/target_pose', '/target_pose'),
             # publish
-            ('/unsafe_ctrl', '/cmd_vel'),
-            ('/vel_ctrl', '/unused'),
+            ('unsafe_ctrl', '/cmd_vel'),
+            ('vel_ctrl', '/cmd_vel_stamped'),
         ],
     )
 

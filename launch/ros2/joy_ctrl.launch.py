@@ -44,7 +44,7 @@ def generate_launch_description():
         remappings=[
             # publish
             ('unsafe_ctrl', '/cmd_vel'),
-            ('vel_ctrl', '/unused'),
+            ('vel_ctrl', '/cmd_vel_stamped'),
         ],
     )
 

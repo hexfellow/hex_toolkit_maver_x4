@@ -98,23 +98,26 @@ def generate_launch_description():
     )
 
     # real
+    bringup_yaml = FindPackageShare('hex_toolkit_maver_x4').find(
+        'hex_toolkit_maver_x4') + '/config/ros2/bringup.yaml'
     real_group = GroupAction(
         [
             Node(
-                package='xpkg_vehicle',
-                executable='xnode_vehicle',
-                name='xnode_vehicle',
-                output='screen',
+                package='robot_hardware_interface',
+                executable='chassis_trans',
+                name='hex_chassis',
+                output="screen",
                 emulate_tty=True,
-                parameters=[{
-                    'can_device': 'hexcan0',
-                    'calc_odom_from_speed': False,
-                }],
+                parameters=[
+                    bringup_yaml,
+                ],
                 remappings=[
-                    # subscribe
-                    ('/cmd_vel', '/cmd_vel'),
                     # publish
-                    ('/odom', '/odom'),
+                    ('/motor_states', '/motor_states'),
+                    ('/real_vel', '/real_vel'),
+                    # subscribe
+                    ('/joint_ctrl', '/joint_ctrl'),
+                    ('/cmd_vel', '/cmd_vel_stamped'),
                 ],
             ),
         ],

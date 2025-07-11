@@ -9,22 +9,10 @@ pid_trace:
     model_odom: "odom"
 
     # limit
-    limit_vel:
-      # [vx_min, vx_max]
-      # [vy_min, vy_max]
-      # [vyaw_min, vyaw_max]
-      - "[-1.0, 1.0]"
-      - "[-1.0, 1.0]"
-      - "[-1.57, 1.57]"
-    limit_acc:
-      # [ax_min, ax_max]
-      # [ay_min, ay_max]
-      # [ayaw_min, ayaw_max]
-      - "[-2.0, 2.0]"
-      - "[-2.0, 2.0]"
-      - "[-3.14, 3.14]"
+    limit_vel: [0.5, 1.57] # [vel_normal, vel_yaw]
+    limit_acc: [6.0, 3.14] # [acc_normal, acc_yaw]
     # obs
-    obs_weights: 0.3
+    obs_weights: 0.0
 
     # trace
     trace_pid:
@@ -34,10 +22,7 @@ pid_trace:
       - "[100.0, 100.0, 100.0]"
       - "[0.0, 0.0, 0.0]"
       - "[20.0, 20.0, 20.0]"
-    trace_err_limit:
-      # [x_min, x_max]
-      # [y_min, y_max]
-      # [yaw_min, yaw_max]
-      - "[-0.5, 0.5]"
-      - "[-0.5, 0.5]"
-      - "[-1.0, 1.0]"
+      # - "[20.0, 20.0, 20.0]"
+      # - "[0.0, 0.0, 0.0]"
+      # - "[2.0, 2.0, 2.0]"
+    trace_err_limit: [1.0, 2.0] # [normal, yaw]

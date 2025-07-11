@@ -23,7 +23,7 @@
         <remap from="/target_pose" to="/target_pose" />
         # publish
         <remap from="/unsafe_ctrl" to="/cmd_vel" />
-        <remap from="/vel_ctrl" to="/unused" />
+        <remap from="/vel_ctrl" to="/cmd_vel_stamped" />
     </node>
 
     # test

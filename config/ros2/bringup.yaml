@@ -1,0 +1,15 @@
+hex_chassis:
+  ros__parameters:
+    # rate
+    rate_ros: 300.0
+    rate_state: 200.0
+
+    # frame
+    frame_id: "base_link"
+
+    # mode
+    simple_mode: true
+
+    # websocket
+    # ws_url: "ws://172.18.23.92:8439"
+    ws_url: "ws://10.42.0.13:8439"
