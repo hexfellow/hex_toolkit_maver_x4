@@ -7,10 +7,10 @@ model_base: "base_link"
 model_odom: "odom"
 
 # limit
-limit_vel: [0.5, 1.57] # [vel_normal, vel_yaw]
+limit_vel: [0.4, 0.785] # [vel_normal, vel_yaw]
 limit_acc: [6.0, 3.14] # [acc_normal, acc_yaw]
 # obs
-obs_weights: 0.3
+obs_weights: 0.0
 
 # trace
 trace_pid:
