@@ -27,27 +27,8 @@ class ObsUtil:
         self.__obs_param = copy.deepcopy(obs_param)
 
         ### variables
-        zero_vec = np.zeros(2)
-        self.__vel_limit = np.stack((
-            limit_param["vel"][0, :],
-            limit_param["vel"][1, :],
-            zero_vec,
-        ))
-        self.__omega_limit = np.stack((
-            zero_vec,
-            zero_vec,
-            limit_param["vel"][2, :],
-        ))
-        self.__acc_limit = np.stack((
-            limit_param["acc"][0, :],
-            limit_param["acc"][1, :],
-            zero_vec,
-        ))
-        self.__alpha_limit = np.stack((
-            zero_vec,
-            zero_vec,
-            limit_param["acc"][2, :],
-        ))
+        self.__vel_limit = self.__limit_param["vel"]
+        self.__acc_limit = self.__limit_param["acc"]
         self.__dt = 1.0 / rate_param["ros"]
         self.__ready = False
         self.__obs_state = HexCartState()
@@ -84,6 +65,12 @@ class ObsUtil:
 
     def get_state(self) -> HexCartState:
         return self.__obs_state
+    
+    def limit_norm(self, vec, max_norm):
+        norm = np.linalg.norm(vec)
+        if norm > max_norm:
+            return vec / (norm + 1e-8) * max_norm
+        return vec
 
     def predict(
         self,
@@ -97,27 +84,17 @@ class ObsUtil:
         cur_lin_in_body = self.__obs_state.vel().linear()
         cur_ang_in_body = self.__obs_state.vel().angular()
 
-        # vel
-        limited_acc = np.clip(
-            acc,
-            self.__acc_limit[:, 0],
-            self.__acc_limit[:, 1],
-        )
-        limited_alpha = np.clip(
-            alpha,
-            self.__alpha_limit[:, 0],
-            self.__alpha_limit[:, 1],
-        )
-        tar_lin_in_body = np.clip(
-            cur_lin_in_body + limited_acc * self.__dt,
-            self.__vel_limit[:, 0],
-            self.__vel_limit[:, 1],
-        )
-        tar_ang_in_body = np.clip(
-            cur_ang_in_body + limited_alpha * self.__dt,
-            self.__omega_limit[:, 0],
-            self.__omega_limit[:, 1],
-        )
+        acc_max = abs(self.__acc_limit[0])
+        alpha_max = abs(self.__acc_limit[1])
+        limited_acc = self.limit_norm(acc, acc_max)
+        limited_alpha = self.limit_norm(alpha, alpha_max)
+        tar_lin_in_body = cur_lin_in_body + limited_acc * self.__dt
+        tar_ang_in_body = cur_ang_in_body + limited_alpha * self.__dt
+
+        vel_max = abs(self.__vel_limit[0])
+        ang_max = abs(self.__vel_limit[1])
+        tar_lin_in_body = self.limit_norm(tar_lin_in_body, vel_max)
+        tar_ang_in_body = self.limit_norm(tar_ang_in_body, ang_max)
 
         # pose
         rot_body_in_odom = trans_body_in_odom[:3, :3]

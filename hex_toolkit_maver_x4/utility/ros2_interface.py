@@ -39,11 +39,11 @@ class DataInterface(InterfaceBase):
         self.__node.declare_parameter('model_path', "unknown")
         self.__node.declare_parameter('model_base', "unknown")
         self.__node.declare_parameter('model_odom', "unknown")
-        self.__node.declare_parameter('limit_vel', ["[-1.0, 1.0]"])
-        self.__node.declare_parameter('limit_acc', ["[-1.0, 1.0]"])
+        self.__node.declare_parameter('limit_vel', [-1.0, 1.0])
+        self.__node.declare_parameter('limit_acc', [-1.0, 1.0])
         self.__node.declare_parameter('obs_weights', 0.5)
         self.__node.declare_parameter('trace_pid', ["[1.0, 1.0, 1.0]"])
-        self.__node.declare_parameter('trace_err_limit', ["[-1.0, 1.0]"])
+        self.__node.declare_parameter('trace_err_limit', [-1.0, 1.0])
         # rate
         self._rate_param.update({
             "odom":
@@ -61,13 +61,9 @@ class DataInterface(InterfaceBase):
         # limit
         self._limit_param.update({
             "vel":
-            np.array(
-                self._str_to_list(
-                    self.__node.get_parameter('limit_vel').value)),
+            np.array(self.__node.get_parameter('limit_vel').value),
             "acc":
-            np.array(
-                self._str_to_list(
-                    self.__node.get_parameter('limit_acc').value)),
+            np.array(self.__node.get_parameter('limit_acc').value),
         })
         # obs
         self._obs_param.update({
@@ -83,9 +79,7 @@ class DataInterface(InterfaceBase):
             "dt":
             1.0 / self._rate_param["ros"],
             "err_limit":
-            np.array(
-                self._str_to_list(
-                    self.__node.get_parameter('trace_err_limit').value)),
+            np.array(self.__node.get_parameter('trace_err_limit').value),
         })
 
         ### publisher
