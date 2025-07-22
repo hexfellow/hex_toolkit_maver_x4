@@ -49,6 +49,8 @@ If you prefer to set up manually, please note that the repository may not functi
 
 ### **Installation**
 
+0. First, finish all steps in [Dependencies](#dependencies)
+
 1. Create a ROS workspace and navigate to the `src` directory:
 
    ```bash
@@ -59,8 +61,8 @@ If you prefer to set up manually, please note that the repository may not functi
 2. Clone the required repositories:
 
    ```bash
-   git clone https://github.com/hexfellow/hex_toolkit_general_chassis.git
-   git clone https://github.com/hexfellow/robot_hardware_interface.git
+   git clone https://github.com/hexfellow/hex_toolkit_general_chassis.git   # MUST READ THE README IN IT
+   git clone https://github.com/hexfellow/robot_hardware_interface.git      # MUST READ THE README IN IT
    git clone https://github.com/hexfellow/hex_toolkit_maver_x4.git
    ```
 
