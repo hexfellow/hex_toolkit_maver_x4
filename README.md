@@ -5,6 +5,8 @@
 
 The **hex_toolkit_maver_x4** package provides a suite of tools for **Maver X4**, including URDF models and a simple control demo.
 
+If you want to see a demo of the Rust version, visit the [rust-robot-demos](https://github.com/hexfellow/rust-robot-demos) repo.
+
 ### **Maintainer**
 
 **Dong Zhaorui**: [847235539@qq.com](mailto:847235539@qq.com)
@@ -28,6 +30,10 @@ The **hex_toolkit_maver_x4** package provides a suite of tools for **Maver X4**,
 
 ## **Getting Started**
 
+### **Quick Start**
+
+If you want to use this repository quickly, you can refer to the [ROS-Maver-x4](https://docs.hexfellow.com/hex-base/) documentation to configure the environment needed to run the repository.
+
 ### **Dependencies**
 
 For **Hex Chassis** users, we highly recommend using this package within our **Hex Docker Images** to ensure compatibility and an optimized setup experience.
@@ -43,9 +49,6 @@ If you prefer to set up manually, please note that the repository may not functi
 3. **robot_hardware_interface**
 
     Follow the official [Installation Guide](https://github.com/hexfellow/robot_hardware_interface.git).
-
-4. **acados**  
-   Follow the official [Installation Guide](https://docs.acados.org/installation/index.html).
 
 ### **Installation**
 
@@ -97,6 +100,10 @@ Source the appropriate setup file based on your ROS version:
   ```bash
   source install/setup.bash --extend
   ```
+
+#### **Important Note**
+
+During real vehicle operation, you must modify the target IP address in `config/bringup.yaml` to the actual IP of the vehicle.​Refer to the [ROS-Maver-x4](https://docs.hexfellow.com/hex-base/) documentation for specific configuration steps.
 
 ---
 

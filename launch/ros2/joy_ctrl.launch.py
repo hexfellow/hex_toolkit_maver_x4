@@ -23,7 +23,7 @@ def generate_launch_description():
     )
     sim_flag = DeclareLaunchArgument(
         'sim_flag',
-        default_value='true',
+        default_value='false',
     )
 
     # joy ctrl

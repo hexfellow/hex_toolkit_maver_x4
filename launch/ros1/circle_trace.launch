@@ -9,7 +9,7 @@
     # arg
     <arg name="test_flag" default="true" />
     <arg name="visual_flag" default="true" />
-    <arg name="sim_flag" default="true" />
+    <arg name="sim_flag" default="false" />
     # use sim time
     <param name="use_sim_time" value="$(arg sim_flag)" />
 
