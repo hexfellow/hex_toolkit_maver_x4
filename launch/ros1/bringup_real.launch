@@ -1,0 +1,20 @@
+<!--#######################################-->
+<!-- Copyright (c) 2024  Dong Zhaorui.     -->
+<!-- All rights reserved.                  -->
+<!-- Author: Dong Zhaorui 847235539@qq.com -->
+<!-- Date  : 2024-12-23                    -->
+<!--#######################################-->
+
+<launch>
+    # driver
+    <node name="hex_chassis" pkg="robot_hardware_interface" type="chassis_trans.py" output="screen" >
+        # param
+        <rosparam file="$(find hex_toolkit_maver_x4)/config/ros1/bringup.yaml"/>
+        # publish
+        <remap from="/motor_states" to="/motor_states" />
+        <remap from="/real_vel" to="/real_vel" />
+        # subscribe
+        <remap from="/joint_ctrl" to="/joint_ctrl" />
+        <remap from="/cmd_vel" to="/cmd_vel_stamped" />
+    </node>
+</launch>

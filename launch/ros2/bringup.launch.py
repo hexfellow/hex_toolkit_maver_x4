@@ -9,13 +9,11 @@
 import xacro
 from launch import LaunchDescription
 from launch_ros.substitutions import FindPackageShare
-from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
-from launch.actions import GroupAction
+from launch.actions import DeclareLaunchArgument, GroupAction
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch.conditions import IfCondition, UnlessCondition
 from launch_ros.actions import Node
 from launch.actions import IncludeLaunchDescription
-from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 
 def generate_launch_description():
@@ -24,26 +22,33 @@ def generate_launch_description():
         'visual_flag',
         default_value='true',
     )
+    
     sim_flag = DeclareLaunchArgument(
         'sim_flag',
         default_value='false',
     )
-
+    
     # visual
-    urdf_file_path = FindPackageShare('hex_toolkit_maver_x4').find(
-        'hex_toolkit_maver_x4') + '/urdf/maver_x4_ros2.xacro'
-    rviz_file_path = FindPackageShare('hex_toolkit_maver_x4').find(
-        'hex_toolkit_maver_x4') + '/config/ros2/display.rviz'
+    urdf_file_path = PathJoinSubstitution([
+        FindPackageShare('hex_toolkit_maver_x4'),
+        'urdf',
+        'maver_x4_ros2.xacro'
+    ])
+    rviz_file_path = PathJoinSubstitution([
+        FindPackageShare('hex_toolkit_maver_x4'),
+        'config/ros2',
+        'display.rviz'
+    ])
     visual_group = GroupAction(
         [
+            # 机器人状态发布器
             Node(
                 package='robot_state_publisher',
                 executable='robot_state_publisher',
                 name='robot_state_publisher',
                 output='screen',
                 parameters=[{
-                    'use_sim_time':
-                    LaunchConfiguration('sim_flag'),
+                    'use_sim_time': LaunchConfiguration('sim_flag'),
                     'robot_description':
                     xacro.process_file(urdf_file_path).toxml(),
                 }],
@@ -62,67 +67,23 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('visual_flag')),
     )
 
-    # sim
-    gazebo_launch_path = FindPackageShare('gazebo_ros').find(
-        'gazebo_ros') + '/launch/gazebo.launch.py'
-    gazebo_param = FindPackageShare('hex_toolkit_maver_x4').find(
-        'hex_toolkit_maver_x4') + '/config/ros2/gazebo.yaml'
-    sim_group = GroupAction(
-        [
-            IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([gazebo_launch_path]),
-                launch_arguments={
-                    'params_file': gazebo_param,
-                }.items(),
-            ),
-            Node(
-                package='gazebo_ros',
-                executable='spawn_entity.py',
-                arguments=[
-                    '-topic',
-                    'robot_description',
-                    '-entity',
-                    'maver_x4',
-                    '-x',
-                    '0.0',
-                    '-y',
-                    '0.0',
-                    '-z',
-                    '0.0',
-                    '-Y',
-                    '0.0',
-                ],
-            ),
-        ],
-        condition=IfCondition(LaunchConfiguration('sim_flag')),
-    )
-
-    # real
-    bringup_yaml = FindPackageShare('hex_toolkit_maver_x4').find(
-        'hex_toolkit_maver_x4') + '/config/ros2/bringup.yaml'
-    real_group = GroupAction(
-        [
-            Node(
-                package='robot_hardware_interface',
-                executable='chassis_trans',
-                name='hex_chassis',
-                output="screen",
-                emulate_tty=True,
-                parameters=[
-                    bringup_yaml,
-                ],
-                remappings=[
-                    # publish
-                    ('/motor_states', '/motor_states'),
-                    ('/real_vel', '/real_vel'),
-                    # subscribe
-                    ('/joint_ctrl', '/joint_ctrl'),
-                    ('/cmd_vel', '/cmd_vel_stamped'),
-                ],
-            ),
-        ],
-        condition=UnlessCondition(LaunchConfiguration('sim_flag')),
-    )
+    bringup_sim = IncludeLaunchDescription(
+            PathJoinSubstitution([
+                FindPackageShare('hex_toolkit_maver_x4'),
+                'launch',
+                'bringup_sim.launch.py'
+            ]),
+            condition=IfCondition(LaunchConfiguration('sim_flag'))
+        ),
+    
+    bringup_real = IncludeLaunchDescription(
+            PathJoinSubstitution([
+                FindPackageShare('hex_toolkit_maver_x4'),
+                'launch',
+                'bringup_real.launch.py'
+            ]),
+            condition=UnlessCondition(LaunchConfiguration('sim_flag'))
+        ),
 
     return LaunchDescription([
         # arg
@@ -131,7 +92,7 @@ def generate_launch_description():
         # visual
         visual_group,
         # sim
-        sim_group,
+        bringup_sim,
         # real
-        real_group,
+        bringup_real,
     ])

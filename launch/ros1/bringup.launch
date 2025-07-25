@@ -29,27 +29,10 @@
 
     # sim
     <group if="$(arg sim_flag)">
-        # gazebo
-        <include file="$(find gazebo_ros)/launch/empty_world.launch" />
-        # spawn
-        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
-                args="-urdf -model maver_x4 -param robot_description -x 0 -y 0 -z 0" />
-        <node name="joint_state_publisher" 
-              pkg="joint_state_publisher" 
-              type="joint_state_publisher" />
+        <include file="$(find hex_toolkit_maver_x4)/launch/sim_bringup.launch" />
     </group>
     # real
     <group unless="$(arg sim_flag)">
-        # driver
-        <node name="hex_chassis" pkg="robot_hardware_interface" type="chassis_trans.py" output="screen" >
-            # param
-            <rosparam file="$(find hex_toolkit_maver_x4)/config/ros1/bringup.yaml"/>
-            # publish
-            <remap from="/motor_states" to="/motor_states" />
-            <remap from="/real_vel" to="/real_vel" />
-            # subscribe
-            <remap from="/joint_ctrl" to="/joint_ctrl" />
-            <remap from="/cmd_vel" to="/cmd_vel_stamped" />
-        </node>
+        <include file="$(find hex_toolkit_maver_x4)/launch/real_bringup.launch" />
     </group>
 </launch>
