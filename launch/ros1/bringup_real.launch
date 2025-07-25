@@ -15,6 +15,6 @@
         <remap from="/real_vel" to="/real_vel" />
         # subscribe
         <remap from="/joint_ctrl" to="/joint_ctrl" />
-        <remap from="/cmd_vel" to="/cmd_vel_stamped" />
+        <remap from="/cmd_vel" to="/cmd_vel" />
     </node>
 </launch>

@@ -30,7 +30,7 @@ def generate_launch_description():
                 ('/real_vel', '/real_vel'),
                 # subscribe
                 ('/joint_ctrl', '/joint_ctrl'),
-                ('/cmd_vel', '/cmd_vel_stamped'),
+                ('/cmd_vel', '/cmd_vel'),
             ],
         ),
     ])
