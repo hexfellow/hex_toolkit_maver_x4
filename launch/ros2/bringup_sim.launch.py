@@ -15,17 +15,10 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    gazebo_launch_path = PathJoinSubstitution([
-        FindPackageShare('gazebo_ros'), 
-        'launch', 
-        'gazebo.launch.py'
-    ])
-    
-    gazebo_param = PathJoinSubstitution([
-        FindPackageShare('hex_toolkit_maver_x4'),
-        'config/ros2',
-        'gazebo.yaml'
-    ])
+    gazebo_launch_path = FindPackageShare('gazebo_ros').find(
+            'gazebo_ros') + '/launch/gazebo.launch.py'
+    gazebo_param = FindPackageShare('hex_toolkit_maver_x4').find(
+        'hex_toolkit_maver_x4') + '/config/ros2/gazebo.yaml'
     
     return LaunchDescription([
         IncludeLaunchDescription(

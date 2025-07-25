@@ -29,19 +29,13 @@ def generate_launch_description():
     )
     
     # visual
-    urdf_file_path = PathJoinSubstitution([
-        FindPackageShare('hex_toolkit_maver_x4'),
-        'urdf',
-        'maver_x4_ros2.xacro'
-    ])
-    rviz_file_path = PathJoinSubstitution([
-        FindPackageShare('hex_toolkit_maver_x4'),
-        'config/ros2',
-        'display.rviz'
-    ])
+    urdf_file_path = FindPackageShare('hex_toolkit_maver_x4').find(
+            'hex_toolkit_maver_x4') + '/urdf/maver_x4_ros2.xacro'
+    rviz_file_path = FindPackageShare('hex_toolkit_maver_x4').find(
+        'hex_toolkit_maver_x4') + '/config/ros2/display.rviz'
+    
     visual_group = GroupAction(
         [
-            # 机器人状态发布器
             Node(
                 package='robot_state_publisher',
                 executable='robot_state_publisher',
@@ -70,20 +64,20 @@ def generate_launch_description():
     bringup_sim = IncludeLaunchDescription(
             PathJoinSubstitution([
                 FindPackageShare('hex_toolkit_maver_x4'),
-                'launch',
+                'launch/ros2',
                 'bringup_sim.launch.py'
             ]),
             condition=IfCondition(LaunchConfiguration('sim_flag'))
-        ),
+        )
     
     bringup_real = IncludeLaunchDescription(
             PathJoinSubstitution([
                 FindPackageShare('hex_toolkit_maver_x4'),
-                'launch',
+                'launch/ros2',
                 'bringup_real.launch.py'
             ]),
             condition=UnlessCondition(LaunchConfiguration('sim_flag'))
-        ),
+        )
 
     return LaunchDescription([
         # arg

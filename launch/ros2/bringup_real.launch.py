@@ -13,11 +13,8 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    bringup_yaml = PathJoinSubstitution([
-        FindPackageShare('hex_toolkit_maver_x4'),
-        'config/ros2',
-        'bringup.yaml'
-    ])
+    bringup_yaml = FindPackageShare('hex_toolkit_maver_x4').find(
+        'hex_toolkit_maver_x4') + '/config/ros2/bringup.yaml'
     
     return LaunchDescription([
         Node(
@@ -28,8 +25,10 @@ def generate_launch_description():
             emulate_tty=True,
             parameters=[bringup_yaml],
             remappings=[
+                # publish
                 ('/motor_states', '/motor_states'),
                 ('/real_vel', '/real_vel'),
+                # subscribe
                 ('/joint_ctrl', '/joint_ctrl'),
                 ('/cmd_vel', '/cmd_vel_stamped'),
             ],

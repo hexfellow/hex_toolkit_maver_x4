@@ -29,10 +29,10 @@
 
     # sim
     <group if="$(arg sim_flag)">
-        <include file="$(find hex_toolkit_maver_x4)/launch/sim_bringup.launch" />
+        <include file="$(find hex_toolkit_maver_x4)/launch/ros1/bringup_sim.launch" />
     </group>
     # real
     <group unless="$(arg sim_flag)">
-        <include file="$(find hex_toolkit_maver_x4)/launch/real_bringup.launch" />
+        <include file="$(find hex_toolkit_maver_x4)/launch/ros1/bringup_real.launch" />
     </group>
 </launch>
