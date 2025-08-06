@@ -8,9 +8,10 @@
 <launch>
     # arg
     <arg name="visual_flag" default="true" />
-    <arg name="sim_flag" default="false" />
+    <arg name="sim_time_flag" default="false" />
+    <arg name="hardware_flag" default="false" />
     # use sim time
-    <param name="use_sim_time" value="$(arg sim_flag)" />
+    <param name="use_sim_time" value="$(arg sim_time_flag)" />
 
     # key ctrl
     <node name="key_ctrl" pkg="hex_toolkit_general_chasssis" type="key_ctrl.py" output="screen" >
@@ -24,6 +25,7 @@
     # bringup
     <include file="$(find hex_toolkit_maver_x4)/launch/ros1/bringup.launch">
         <arg name="visual_flag" value="$(arg visual_flag)" />
-        <arg name="sim_flag" value="$(arg sim_flag)" />
+        <arg name="sim_time_flag" value="$(arg sim_time_flag)" />
+        <arg name="hardware_flag" value="$(arg hardware_flag)" />
     </include>
 </launch>

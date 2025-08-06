@@ -16,11 +16,9 @@ elif ROS_VERSION == '2':
 else:
     raise ValueError("ROS_VERSION is not set")
 
-from .obs_util import ObsUtil
 from .ctrl_util import PdCtrl
 
 __all__ = [
     "DataInterface",
-    "ObsUtil",
     "PdCtrl",
 ]

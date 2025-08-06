@@ -45,14 +45,14 @@ class DataInterface(InterfaceBase):
         # obs
         self._obs_param.update({
             "weights":
-            np.array(rospy.get_param('~obs_weights', 1.0)),
+            np.array(rospy.get_param('~obs_weights', [1.0])),
         })
         # limit
         self._limit_param.update({
             "vel":
-            np.array(rospy.get_param('~limit_vel', [-1.0, 1.0])),
+            np.array(rospy.get_param('~limit_vel', [0.0])),
             "acc":
-            np.array(rospy.get_param('~limit_acc', [-1.0, 1.0])),
+            np.array(rospy.get_param('~limit_acc', [0.0])),
         })
         # trace
         self._trace_param.update({
@@ -63,7 +63,7 @@ class DataInterface(InterfaceBase):
             "dt":
             1.0 / self._rate_param["ros"],
             "err_limit":
-            np.array(rospy.get_param('~trace_err_limit', [-1.0, 1.0])),
+            np.array(rospy.get_param('~trace_err_limit', [0.0])),
         })
 
         ### publisher

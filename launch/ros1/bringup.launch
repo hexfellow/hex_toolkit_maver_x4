@@ -8,9 +8,10 @@
 <launch>
     # arg
     <arg name="visual_flag" default="true" />
-    <arg name="sim_flag" default="false" />
+    <arg name="sim_time_flag" default="false" />
+    <arg name="hardware_flag" default="false" />
     # use sim time
-    <param name="use_sim_time" value="$(arg sim_flag)" />
+    <param name="use_sim_time" value="$(arg sim_time_flag)" />
     
     # visual
     <group if="$(arg visual_flag)">
@@ -28,11 +29,23 @@
     </group>
 
     # sim
-    <group if="$(arg sim_flag)">
-        <include file="$(find hex_toolkit_maver_x4)/launch/ros1/bringup_sim.launch" />
+    <group unless="$(arg hardware_flag)">
+        <node name="odom_sim" pkg="hex_toolkit_general_chasssis" type="odom_sim.py" output="screen">
+            <param name="use_sim_time" value="$(arg sim_time_flag)" />
+            <rosparam command="load" file="$(find hex_toolkit_maver_x4)/config/ros1/odom_sim.yaml" />
+            <remap from="/cmd_vel" to="/cmd_vel" />
+            <remap from="/odom" to="/odom" />
+        </node>
     </group>
+    
     # real
-    <group unless="$(arg sim_flag)">
-        <include file="$(find hex_toolkit_maver_x4)/launch/ros1/bringup_real.launch" />
+    <group if="$(arg hardware_flag)">
+        <node name="hex_chassis" pkg="robot_hardware_interface" type="chassis_trans.py" output="screen">
+            <rosparam command="load" file="$(find hex_toolkit_maver_x4)/config/ros1/bringup.yaml" />
+            <remap from="/motor_states" to="/motor_states" />
+            <remap from="/real_vel" to="/real_vel" />
+            <remap from="/joint_ctrl" to="/joint_ctrl" />
+            <remap from="/cmd_vel" to="/cmd_vel" />
+        </node>
     </group>
 </launch>

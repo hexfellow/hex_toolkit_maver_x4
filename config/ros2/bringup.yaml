@@ -11,5 +11,4 @@ hex_chassis:
     simple_mode: true
 
     # websocket
-    # ws_url: "ws://172.18.23.92:8439"
-    ws_url: "ws://10.42.0.13:8439"
+    ws_url: "ws://192.168.1.230:8439"
